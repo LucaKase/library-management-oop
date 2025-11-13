@@ -97,6 +97,57 @@ def test_library_class():
     print("-" * 30)
 
 
+def test_integration():
+    print("-" * 30)
+    print("LIBRARY MANAGEMENT SYSTEM - FULL INTEGRATION TEST")
+    print("-" * 30)
+
+    library = Library()
+
+    print("\n--- TEST 1: Adding Books ---")
+    library.add_book(Book(1, "Python Crash Course", "Eric Matthes", 3))
+    library.add_book(Book(2, "Clean Code", "Robert Martin", 2))
+    library.add_book(Book(3, "The Pragmatic Programmer", "Hunt & Thomas", 1))
+    library.add_book(Book(4, "Design Patterns", "Gang of Four", 2))
+
+    print("\n--- TEST 2: Registering Members ---")
+    library.add_member(Member(101, "Alice Smith", "alice@email.com"))
+    library.add_member(Member(102, "Bob Jones", "bob@email.com"))
+    library.add_member(Member(103, "Carol White", "carol@email.com"))
+
+    print("\n--- TEST 3: Display Available Books ---")
+    library.display_available_books()
+
+    print("\n--- TEST 4: Borrowing Books ---")
+    library.borrow_book(101, 1)
+    library.borrow_book(101, 2)
+    library.borrow_book(102, 1)
+
+    print("\n--- TEST 5: Display Member's Books ---")
+    library.display_member_books(101)
+    library.display_member_books(102)
+    library.display_member_books(103)
+
+    print("\n--- TEST 6: Borrowing Limit & Error Cases ---")
+    library.borrow_book(101, 3)  # Third book OK
+    library.borrow_book(999, 1)  # Nonexistent member
+    library.borrow_book(101, 999)  # Nonexistent book
+
+    print("\n--- TEST 7: Returning Books ---")
+    library.return_book(101, 1)
+    library.return_book(102, 1)
+    library.return_book(103, 1)  # Invalid return
+
+    print("\n--- TEST 8: Final Status ---")
+    for member_id in library.members:
+        library.display_member_books(member_id)
+    library.display_available_books()
+
+    print("\n" + "-" * 30)
+    print("INTEGRATION TEST COMPLETE")
+    print("-" * 30)
+
+
 if __name__ == "__main__":
     print("=" * 60)
     print("LIBRARY MANAGEMENT SYSTEM -  OOP COMPREHENSIVE TEST")
@@ -105,3 +156,4 @@ if __name__ == "__main__":
     test_book_class()
     test_member_class()
     test_library_class()
+    test_integration()
