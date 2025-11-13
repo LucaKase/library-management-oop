@@ -1,4 +1,4 @@
-from library_oop import Book
+from library_oop import Book, Member
 
 
 def test_book_class():
@@ -39,9 +39,35 @@ def test_book_class():
     print("-" * 30)
 
 
+def test_member_class():
+    print("-" * 30)
+    print("MEMBER CLASS TESTS")
+    print("-" * 30)
+
+    book1 = Book(1, "1984", "George Orwell", 3)
+    book2 = Book(2, "Clean Code", "Jeff", 2)
+
+    member = Member(101, "Alice Garden", "alice@email.com")
+
+    member.borrow_book(book1)
+    member.borrow_book(book2)
+
+    member.display_borrowed_books()
+
+    member.return_book(1)
+    member.display_borrowed_books()
+
+    member.return_book(3)
+
+    print("\n" + "-" * 30)
+    print("MEMBER CLASS TEST COMPLETE")
+    print("-" * 30)
+
+
 if __name__ == "__main__":
     print("=" * 60)
     print("LIBRARY MANAGEMENT SYSTEM -  OOP COMPREHENSIVE TEST")
     print("=" * 60, "\n")
 
     test_book_class()
+    test_member_class()
