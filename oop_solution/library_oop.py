@@ -45,3 +45,65 @@ class Member:
         else:
             for book in self.borrowed_books_list:
                 print(f"- {book.title} by {book.author}")
+
+
+class Library:
+    def __init__(self):
+        self.books = {}
+        self.members = {}
+
+    def add_book(self, book):
+        if self.books.get(book.id) == None:
+            self.books[book.id] = book
+            print("Book added to Library")
+        else:
+            print("Book already exists")
+
+    def add_member(self, member):
+        if self.members.get(member.id) == None:
+            self.members[member.id] = member
+            print("Member registered")
+        else:
+            print("Member already registered")
+
+    def borrow_book(self, member_id, book_id):
+        member = self.members.get(member_id)
+        book = self.books.get(book_id)
+
+        if not member:
+            print("Member not found!")
+            return
+        if not book:
+            print("Book not found!")
+            return
+        if not book.is_available():
+            print("No copies available!")
+            return
+
+        book.borrow()
+        member.borrow_book(book)
+
+    def return_book(self, member_id, book_id):
+        member = self.members.get(member_id)
+        book = self.books.get(book_id)
+
+        if not member or not book:
+            print("Member or book not found!")
+            return
+
+        member.return_book(book_id)
+        book.return_book()
+
+    def display_available_books(self):
+        print("\n--- Available Books ---")
+        for book in self.books.values():
+            if book.is_available():
+                print(
+                    f"{book.title} by {book.author} - {book.available_copies} copies available")
+
+    def display_member_books(self, member_id):
+        member = self.members.get(member_id)
+        if not member:
+            print("Member not found!")
+            return
+        member.display_borrowed_books()
